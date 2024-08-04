@@ -21,7 +21,7 @@ const taskRouter=require('./Routes/taskRoutes')
 const app=express();
 app.use(cors(
     {
-        origin:'http://localhost:5173',
+        origin: 'https://vigneshm454-taskapp.netlify.app',//http://localhost:5173',
         methods:['GET','POST'],
         credentials:true    
     }
