@@ -2,7 +2,7 @@ const express=require('express');
 const {ObjectId,getDatabase}=require('../database')
 const {authUser,authCreateUser}=require('../authMiddleware')
 const router=express.Router()
-
+/*
 router.get('/show-tasks',authUser,async(req,res,next)=>{
     const userId=req.session.user;
     const database1=await getDatabase()
@@ -16,7 +16,7 @@ router.get('/show-tasks',authUser,async(req,res,next)=>{
         res.send({arr:taskArray.reverse(),status:200,msg:'success'}) 
         :res.send({status:300,msg:'No tasks so far'})    
 })
-
+*/
 router.post('/add-tasks',authUser,async(req,res,next)=>{
     const {id,title,description,deadline,isComplete,isImportant}=req.body;
     const userId=req.session.user;
