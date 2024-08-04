@@ -21,7 +21,9 @@ router.get('/get-userData',authUser,async(req,res,next)=>{
     const userData2={fname:userData.fname,lname:userData.lname,email:userData.email}
    // console.log(userData2);
     if(userData===null) return res.send({status:404,msg:'No such user present'});
-    return res.send({status:200,msg:'success',userData:userData2 })    
+    const taskCollection =database.collection('taskDetails');
+    const taskDetails= await taskCollection.findOne({userId:new ObjectId(id)})
+    return res.send({status:200,msg:'success',userData:userData2,arr:(taskDetails.tasks).reverse() })    
 })
 
 router.post('/login-user',async(req,res,next)=>{
@@ -36,6 +38,10 @@ router.post('/login-user',async(req,res,next)=>{
     if(data===null) return res.send({status:404,msg:'No such user exist'})
     if(!comparePassword(passwd,data.password)) 
         return res.send({status:400,msg:'Incorrect password, you may continue with google if you forgot your password'});
+    const taskCollection=database3.collection('taskDetails');
+    const tasksInfo=await taskCollection.findOne({userId:new ObjectId(data._id)});
+    console.log(tasksInfo);
+    
     //const userId=data._id
     req.session.user=data._id;
     // console.log('the session data is ');
@@ -43,7 +49,7 @@ router.post('/login-user',async(req,res,next)=>{
     // console.log(req.session.id);
     return res.send({status:200, msg:'Success', data:{ // id:data._id, 
         fname:data.fname, lname:data.lname, email:data.email
-    }
+    },arr:(tasksInfo.tasks).reverse()
     })
 })
 
@@ -106,15 +112,20 @@ router.post('/verify-user',authCreateUser,async(req,res,next)=>{
     delete req.session.otp;
     delete req.session.userData;
     req.session.user=userdata._id
-    const userId=userdata._id
-    const insertInfo2=await taskCollection.insertOne({userId:new ObjectId(userId),tasks:[]})
+    //const userId=userdata._id
+    const insertInfo2=await taskCollection.insertOne({userId:new ObjectId(userdata._id),tasks:[]})
     // console.log('user entry in  task table created success');
     if(!insertInfo2.acknowledged)
         return res.send({status:404,msg:'failed entering data in task db'});
+
+    const tasksInfo=await taskCollection.findOne({userId:new ObjectId(data._id)});
+    console.log(tasksInfo);
+
     return res.send({status:200, msg:'Success', data:{
         // id:userdata._id,
         fname:userdata.fname, lname:userdata.lname, email:userdata.email
-    }})
+        },arr:(tasksInfo.tasks).reverse()
+    })
 })
 
 router.post('/handle-google-auth-user',async(req,res,next)=>{
@@ -132,19 +143,27 @@ router.post('/handle-google-auth-user',async(req,res,next)=>{
         var userdata= await userCollection.findOne({email:email})//.toArray()[0]
         req.session.user=userdata._id;  
         const insertInfo2=await taskCollection.insertOne({userId:new ObjectId(userdata._id),tasks:[]})
+        
+        const tasksInfo=await taskCollection.findOne({userId:new ObjectId(userdata._id)});
+        console.log(tasksInfo);
+    
         // console.log('user entry in  task table created success by google auth');
         if(insertInfo2.acknowledged){
             return res.send({status:201, msg:'Success', data:{ //id:userdata._id,
                 fname:userdata.fname, lname:userdata.lname, email:userdata.email
-            }})
+            },arr:(tasksInfo.task).reverse()
+            })
         }        
     }else{// data is calculated above if else 
         // console.log('user is already present, want to login using google auth');
         req.session.user=data._id;
+        const tasksInfo=await taskCollection.findOne({userId: new ObjectId(data._id)});
+        console.log(tasksInfo);
         // console.log('user entry in  task table created success by google auth');
         return res.send({status:202, msg:'Success', data:{//id:data._id, 
             fname:data.fname,  lname:data.lname,  email:data.email
-        } })
+        },arr:(tasksInfo.tasks).reverse()
+     })
     }             
 })
 
