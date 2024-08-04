@@ -34,7 +34,8 @@ app.use(SessionDemo({
     saveUninitialized:false,
     cookie:{
         httpOnly:true,
-        maxAge:60000*60
+        maxAge:60000*60,
+        sameSite:'none'
     },
     store:MongoStore.create({
         mongoUrl:uri,
