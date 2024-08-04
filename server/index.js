@@ -41,6 +41,7 @@ app.use(SessionDemo({
         mongoUrl:uri,
         dbName:'taskApplication',
         collectionName:'sessionDemo',
+        ttl:24*60*60,
     })
 }))
 app.use('/',userRouter)
