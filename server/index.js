@@ -35,7 +35,8 @@ app.use(SessionDemo({
     cookie:{
         httpOnly:true,
         maxAge:60000*60,
-        sameSite:'none'
+        sameSite:'None',
+        secure:true,
     },
     store:MongoStore.create({
         mongoUrl:uri,
