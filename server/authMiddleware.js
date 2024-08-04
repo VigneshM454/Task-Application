@@ -1,6 +1,6 @@
 const authUser=(req,res,next)=>{
     // console.log('entered authUser');
-    // console.log(req.session);
+     console.log(req.session);
     if(!req.session.user) return res.send({status:404,msg:'User not authenticated'})
     //if session exist
     // console.log('session exist in session store');
