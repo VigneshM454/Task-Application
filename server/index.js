@@ -19,13 +19,30 @@ const userRouter=require('./Routes/userRoutes')
 const taskRouter=require('./Routes/taskRoutes')
 
 const app=express();
+const allowedOrigins=['https://vigneshm454-taskapp.netlify.app', 'http://localhost:5173' ]
+const corsOptions={
+    origin:(origin,callback)=>{
+        if(allowedOrigins.includes(origin) || !origin){
+            callback(null,true);
+        }else{
+            callback(new Error('Not allowed by cors'))
+        }
+    },
+    methods:['GET','POST'],
+    credentials:true
+}
+app.use(cors(corsOptions))
+/*
 app.use(cors(
     {
-        origin: 'https://vigneshm454-taskapp.netlify.app',//http://localhost:5173',
+        origin: (origin,callback)=>{
+            if(allowedOrigins.includes(origin)||
+        },//'https://vigneshm454-taskapp.netlify.app',//http://localhost:5173',
         methods:['GET','POST'],
         credentials:true    
     }
 ))
+*/
 app.use(express.json())
 app.use(bodyParser.urlencoded({extended:true}))
 app.set('trust proxy',true)
