@@ -19,27 +19,48 @@ const userRouter=require('./Routes/userRoutes')
 const taskRouter=require('./Routes/taskRoutes')
 
 const app=express();
+const allowedOrigins=['https://vigneshm454-taskapp.netlify.app', 'http://localhost:5173' ]
+const corsOptions={
+    origin:(origin,callback)=>{
+        if(allowedOrigins.includes(origin) || !origin){
+            callback(null,true);
+        }else{
+            callback(new Error('Not allowed by cors'))
+        }
+    },
+    methods:['GET','POST'],
+    credentials:true
+}
+app.use(cors(corsOptions))
+/*
 app.use(cors(
     {
-        origin:'http://localhost:5173',
+        origin: (origin,callback)=>{
+            if(allowedOrigins.includes(origin)||
+        },//'https://vigneshm454-taskapp.netlify.app',//http://localhost:5173',
         methods:['GET','POST'],
         credentials:true    
     }
 ))
+*/
 app.use(express.json())
 app.use(bodyParser.urlencoded({extended:true}))
+app.set('trust proxy',true)
 app.use(SessionDemo({
     secret:process.env.SESSIONSECRET,
     resave:false,
     saveUninitialized:false,
     cookie:{
         httpOnly:true,
-        maxAge:60000*60
+        maxAge:60000*60,
+        sameSite:'None',
+        secure:true,
     },
     store:MongoStore.create({
         mongoUrl:uri,
         dbName:'taskApplication',
         collectionName:'sessionDemo',
+        ttl:24*60*60,
     })
 }))
 app.use('/',userRouter)
