@@ -1,0 +1,341 @@
+/*
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+*/
+.addTask{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: bold;
+}
+.createTaskBtn{
+  color: white;
+  background-color: rgb(47, 166, 240);
+}
+.createTaskDiv{
+
+  padding: 20px;
+  background-color: white;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  /* gap: 5px; */
+  position: absolute;
+  min-width: 280px;
+  width: 45vw;
+  max-width: 420px;
+  top: 5%;
+  left: 6%;
+  box-shadow: 0 0 25px black;
+}
+
+.createTaskDiv>.row{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.activetask{
+  background-color: white;
+  color: black;
+  padding: 5px 10px;
+  border-radius: 15px;
+}
+.active{
+  cursor: pointer;
+  background-color: black;
+  color: white;
+  font-size: 80%;
+  border-radius: 20px;
+  padding: 5px 20px;
+}
+.inactive{
+  font-size: 80%;
+  padding: 5px 20px;
+  cursor: pointer;
+}
+.login>form{
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+}
+form{
+  gap:5px;
+}
+form>input{
+  padding: 3px;
+}
+.login>h3{
+  display: flex;
+  flex-direction: row;
+  gap: 3px;
+}
+.login{
+  
+  background-color: cornflowerblue !important;
+  color: black !important;
+}
+.sbtn{
+  margin-top: 10px;
+}
+.errors{
+  color: red;
+}
+.taskOptions{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 3px;
+  justify-content: space-between;
+}
+.editDelete{
+  display: flex;
+  justify-content: space-evenly;
+  width: 30%;
+}
+
+.addnewBtn{
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: 5px;
+  font-weight: bold!important;
+  font-size: 18px;
+}
+.addnewBtn>img{
+  width: 28px;
+}
+.login{
+  
+  min-width: 250px;
+  border-radius: 12px;
+}
+.task>h4{
+  word-wrap: break-word;
+  font-weight: bold;
+  font-size: 18px;
+}
+.task>p{
+  word-wrap: break-word;
+  font-weight: 600;
+}
+.maincontent{
+  
+  overflow-y: scroll;
+  max-height: 85%;
+  border-radius: 13px;
+}
+.navcontent{
+  background-color: cornflowerblue;
+  border-radius: 13px;
+  border: 1px solid white;
+  min-width: 210px;
+  max-height: 95vh;
+  display: flex;
+  position: relative;
+  height: 95vh;
+  min-height: 500px;  
+}
+.maindiv{
+  background-color: cornflowerblue;
+  border-radius: 13px;
+  max-height: 95vh;
+  position: relative;
+  min-height: 500px;
+}
+.totalcontent{
+  min-height: 95vh;
+  width: auto;
+  padding: 10px;
+}
+.task{  
+  background-color: aliceblue;
+  border-radius: 10px;
+  min-width: 240px;
+  max-width: 240px;
+  height: 300px;
+}
+.taskcontainer{
+  
+  padding: 10px;
+  gap: 10px;
+  display: flex;
+  background-color: cornflowerblue;
+  margin: 0;
+  min-width: 75vw;
+}
+
+
+@media screen and (width>640px )and (width<1000px) {
+  .taskcontainer{
+    min-width: 67vw;
+  }
+  .navcontent{
+    min-width: 195px;
+  }
+  .task {
+
+    min-width: 240px;
+    max-width: 240px;
+    height: 300px;
+  }
+}
+@media screen and (width<730px )and (width>500px) {
+  .task{
+    /*
+    min-width: 320px;
+    */
+    height: 280px;
+  }
+  .taskcontainer{
+    min-width: 55vw;
+  }
+  .taskcontainer{
+    justify-content: center!important;
+  }
+  
+}
+  
+.showBurger{
+  display: block;
+}
+.hideBurger{
+  display: none;
+}
+
+@media screen and (width<551px) {
+  .navcontent{
+    position: absolute;
+    z-index: 2;
+  }
+  .taskcontainer{
+    justify-content: center!important;
+  }
+  .task{
+    width: 90%;
+    max-width: none;
+  }
+}
+
+@media screen and (width<340px) {
+  .createTaskDiv{
+    left: 5px;
+  }
+}
+.pointer{
+  cursor: pointer;
+}
+
+.SignoutDiv{
+  position: absolute;
+  z-index: 2;
+  background-color: white;
+  border-radius: 13px;
+  padding: 20px;
+  top: 10%;
+  left: 6%;
+  box-shadow: 0 0 50px black;
+  background-blend-mode: darken;
+  gap: 20px;
+}
+
+.sbtndiv>button{
+  font-weight: 600;
+}
+.ProfileCard{
+  z-index: 3;
+  position: absolute;
+  top: 3%;
+  left: 3%;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  box-shadow: 0 0 40px black;
+  border: 1px solid black;
+  border-radius: 10px;
+  width: 280px;
+  padding: 15px;
+}
+.profileNames{
+  
+  font-size: 18px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.profileEmail,.accBtn,.userfield{
+  font-weight: 600;
+}
+.userDetails>div{
+  overflow: auto;
+}
+::-webkit-scrollbar{
+  background-color: transparent;
+}
+.orWithGoogle{
+  }
+.fbold{
+  font-weight: 700;
+}
+input,textarea{
+  background-color: aliceblue!important;
+}
+.userAccount{
+  min-width: 280px;
+  box-sizing:border-box;
+  position:relative;
+  min-height:420px;
+  width:100%;
+  max-width:500px
+}
+.userContain{
+  border-radius:13px;
+  box-sizing:border-box;
+  background-color:aliceblue
+}
+.form-lablel{
+  font-weight: 600;
+}
